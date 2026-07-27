@@ -1,26 +1,139 @@
 @import "tailwindcss";
 
+/* ─── Custom Properties ─────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --nav-height: 60px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base ───────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fafaf8;
+  color: #111111;
+  font-feature-settings: "ss01" 1, "ss02" 1, "cv01" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ─── Typography ─────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: #111111;
+}
+
+h1 { font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 700; letter-spacing: -0.03em; }
+h2 { font-size: clamp(1.75rem, 3vw, 2.75rem); }
+h3 { font-size: clamp(1.25rem, 2vw, 1.75rem); }
+
+p { color: #6b6b6b; line-height: 1.7; }
+a { color: inherit; text-decoration: none; }
+
+/* ─── Focus ──────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────── */
+::selection {
+  background-color: #111111;
+  color: #fafaf8;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #fafaf8; }
+::-webkit-scrollbar-thumb { background: #e6e6e6; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #6b6b6b; }
+
+/* ─── Reduced Motion ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ─── Container ─────────────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+@media (min-width: 768px) { .container { padding-inline: 2rem; } }
+@media (min-width: 1200px) { .container { padding-inline: 2.5rem; } }
+
+/* ─── Section ────────────────────────────────────────────────────────── */
+.section { padding-block: 6rem; }
+@media (min-width: 768px) { .section { padding-block: 8rem; } }
+
+/* ─── Buttons ────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  border-radius: 6px;
+  transition: all 150ms ease;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background-color: #111111;
+  color: #fafaf8;
+  padding: 0.625rem 1.125rem;
+}
+.btn-primary:hover { background-color: #333333; }
+
+.btn-secondary {
+  background-color: transparent;
+  color: #111111;
+  padding: 0.625rem 1.125rem;
+  border-color: #e6e6e6;
+}
+.btn-secondary:hover {
+  background-color: #f4f4f2;
+  border-color: #d0d0d0;
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: #6b6b6b;
+  padding: 0.5rem 0.75rem;
+}
+.btn-ghost:hover {
+  color: #111111;
+  background-color: #f4f4f2;
+}
+
+/* ─── Tag ────────────────────────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1875rem 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  border: 1px solid #e6e6e6;
+  border-radius: 2px;
 }
