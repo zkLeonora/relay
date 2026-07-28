@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { products } from "@/lib/products";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { animate } from "animejs";
 
 export default function ProductPreviewGrid() {
@@ -58,47 +58,75 @@ export default function ProductPreviewGrid() {
         if (product.slug !== activeTab) return null;
 
         return (
-          <div key={product.slug} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div key={product.slug} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
             {/* Left info */}
-            <div className="lg:col-span-4 flex flex-col gap-6 pr-0 lg:pr-4">
-              <div className="flex flex-col gap-2">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#6b6b6b]">{product.category}</span>
-                <h3 className="text-2xl font-bold tracking-tight text-[#111111]">{product.name}</h3>
-                <p className="text-base text-[#111111] font-medium">{product.tagline}</p>
-                <p className="text-sm text-[#6b6b6b] leading-relaxed mt-1">{product.description}</p>
-              </div>
+            <div className="lg:col-span-4 flex flex-col justify-between gap-6 pr-0 lg:pr-4">
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-2">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-[#6b6b6b]">{product.category}</span>
+                  <h3 className="text-2xl font-bold tracking-tight text-[#111111]">{product.name}</h3>
+                  <p className="text-base text-[#111111] font-medium">{product.tagline}</p>
+                  <p className="text-sm text-[#6b6b6b] leading-relaxed mt-1">{product.description}</p>
+                </div>
 
-              <div className="flex flex-col gap-2 border-t border-[#e6e6e6] pt-4">
-                <p className="text-xs font-semibold uppercase tracking-wider text-[#111111]">Key capabilities</p>
-                <div className="flex flex-wrap gap-1.5 mt-1">
-                  {product.features.map((feature) => (
-                    <span key={feature} className="text-xs text-[#6b6b6b] bg-[#f4f4f2] border border-[#e6e6e6] px-2.5 py-1 rounded">
-                      {feature}
-                    </span>
-                  ))}
+                <div className="flex flex-col gap-2 border-t border-[#e6e6e6] pt-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[#111111]">Key capabilities</p>
+                  <div className="flex flex-wrap gap-1.5 mt-1">
+                    {product.features.map((feature) => (
+                      <span key={feature} className="text-xs text-[#6b6b6b] bg-[#f4f4f2] border border-[#e6e6e6] px-2.5 py-1 rounded">
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <Link
-                href={`/products/${product.slug}`}
-                className="btn btn-primary self-start text-xs gap-2 mt-2"
-              >
-                <span>View {product.name} details</span>
-                <ArrowRight size={14} />
-              </Link>
+              <div className="flex items-center gap-3 pt-2 flex-wrap">
+                <Link
+                  href={`/products/${product.slug}`}
+                  className="btn btn-primary text-xs gap-2"
+                >
+                  <span>View {product.name} details</span>
+                  <ArrowRight size={14} />
+                </Link>
+                {product.slug === "counter" && (
+                  <a
+                    href="https://counter-relay.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-secondary text-xs gap-1.5"
+                  >
+                    <span>Open Live Demo</span>
+                    <ExternalLink size={13} />
+                  </a>
+                )}
+              </div>
             </div>
 
             {/* Right SaaS Mockup Window Container animated with Anime.js */}
-            <div ref={windowRef} className="lg:col-span-8 border border-[#e6e6e6] rounded-lg overflow-hidden bg-[#fafaf8]">
+            <div ref={windowRef} className="lg:col-span-8 border border-[#e6e6e6] rounded-lg overflow-hidden bg-[#fafaf8] flex flex-col h-full min-h-[460px]">
               {/* Window Titlebar */}
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#e6e6e6] bg-[#f4f4f2]">
-                <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#d0d0d0]" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#d0d0d0]" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#d0d0d0]" />
-                  <span className="text-[0.75rem] font-mono text-[#6b6b6b] ml-2">app.relay.software/{product.slug}</span>
+              <div className="flex items-center justify-between px-4 py-2.5 border-b border-[#e6e6e6] bg-[#f4f4f2] shrink-0">
+                <div className="flex items-center gap-2 overflow-hidden">
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#d0d0d0] shrink-0" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#d0d0d0] shrink-0" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#d0d0d0] shrink-0" />
+                  <span className="text-[0.75rem] font-mono text-[#6b6b6b] ml-2 truncate">
+                    {product.slug === "counter" ? "counter-relay.vercel.app" : `app.relay.software/${product.slug}`}
+                  </span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 shrink-0">
+                  {product.slug === "counter" && (
+                    <a
+                      href="https://counter-relay.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-[0.6875rem] text-[#111111] hover:text-[#000000] font-medium bg-[#ffffff] border border-[#e6e6e6] hover:border-[#111111] px-2.5 py-1 rounded transition-colors shadow-2xs"
+                    >
+                      <span>Open preview in new tab</span>
+                      <ExternalLink size={12} />
+                    </a>
+                  )}
                   <span className="text-[0.6875rem] text-[#6b6b6b] font-mono bg-[#fafaf8] border border-[#e6e6e6] px-2 py-0.5 rounded">
                     Terminal 01 · Live
                   </span>
@@ -106,7 +134,7 @@ export default function ProductPreviewGrid() {
               </div>
 
               {/* Window Content UI Mockup */}
-              <div className="p-6">
+              <div className={product.slug === "counter" ? "p-0 flex-1 flex flex-col min-h-0" : "p-6 flex-1 flex flex-col min-h-0"}>
                 {product.slug === "counter" && <CounterUIMock />}
                 {product.slug === "queue" && <QueueUIMock />}
                 {product.slug === "stock" && <StockUIMock />}
@@ -126,62 +154,14 @@ export default function ProductPreviewGrid() {
 
 function CounterUIMock() {
   return (
-    <div className="flex flex-col gap-4 font-sans text-xs">
-      <div className="grid grid-cols-12 gap-4">
-        {/* Item Selector */}
-        <div className="col-span-7 flex flex-col gap-3">
-          <div className="flex items-center justify-between pb-2 border-b border-[#e6e6e6]">
-            <span className="font-semibold text-[#111111]">Quick Register</span>
-            <span className="text-[#6b6b6b]">Category: Espresso Bar</span>
-          </div>
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { name: "Espresso Single", price: "$3.50" },
-              { name: "Flat White", price: "$4.80" },
-              { name: "Cold Brew 16oz", price: "$5.50" },
-              { name: "Avocado Toast", price: "$12.00" },
-              { name: "Almond Croissant", price: "$4.50" },
-              { name: "Matcha Latte", price: "$5.20" },
-            ].map((item, i) => (
-              <div key={i} className="p-2.5 border border-[#e6e6e6] rounded bg-[#fafaf8] flex flex-col justify-between h-16">
-                <span className="font-medium text-[#111111] leading-tight">{item.name}</span>
-                <span className="font-mono text-[#6b6b6b]">{item.price}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Receipt Sidebar */}
-        <div className="col-span-5 border border-[#e6e6e6] rounded p-3 bg-[#fafaf8] flex flex-col justify-between gap-3">
-          <div>
-            <div className="flex items-center justify-between border-b border-[#e6e6e6] pb-2">
-              <span className="font-semibold text-[#111111]">Order #1042</span>
-              <span className="text-[0.625rem] bg-[#111111] text-[#fafaf8] px-1.5 py-0.5 rounded">Offline Sync On</span>
-            </div>
-            <div className="flex flex-col gap-2 mt-3">
-              <div className="flex justify-between text-[#111111]">
-                <span>2x Flat White</span>
-                <span className="font-mono">$9.60</span>
-              </div>
-              <div className="flex justify-between text-[#111111]">
-                <span>1x Avocado Toast</span>
-                <span className="font-mono">$12.00</span>
-              </div>
-              <div className="flex justify-between text-[#6b6b6b]">
-                <span>GST (10%)</span>
-                <span className="font-mono">$2.16</span>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-[#e6e6e6] pt-3 flex flex-col gap-2">
-            <div className="flex justify-between font-bold text-sm text-[#111111]">
-              <span>Total</span>
-              <span className="font-mono">$23.76</span>
-            </div>
-            <button className="btn btn-primary w-full text-xs justify-center py-2">Charge $23.76</button>
-          </div>
-        </div>
-      </div>
+    <div className="w-full h-full min-h-[460px] flex-1">
+      <iframe
+        src="https://counter-relay.vercel.app/"
+        title="Counter POS Interactive Live Preview"
+        className="w-full h-full min-h-[460px] border-0 block"
+        loading="lazy"
+        allow="geolocation; microphone; camera; payment; clipboard-write"
+      />
     </div>
   );
 }
