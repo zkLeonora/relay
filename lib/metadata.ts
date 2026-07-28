@@ -4,11 +4,11 @@ export const siteConfig = {
   name: "Relay",
   description:
     "Relay builds practical business software for real operations: Point of Sale, Booking, Inventory, Accounting, HR, and Analytics.",
-  url: "https://relay.software",
-  ogImage: "https://relay.software/opengraph-image",
+  url: "https://relaylabs.vercel.app",
+  ogImage: "https://relaylabs.vercel.app/opengraph-image",
   links: {
-    twitter: "https://twitter.com/relaysoftware",
-    github: "https://github.com/relaysoftware",
+    twitter: "https://twitter.com/relaylabs",
+    github: "https://github.com/relaylabs",
   },
 };
 
