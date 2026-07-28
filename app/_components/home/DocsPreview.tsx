@@ -37,10 +37,6 @@ export default function DocsPreview() {
         <AnimatedSection>
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-[#e6e6e6]">
             <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2 text-xs font-mono text-[#6b6b6b]">
-                <BookOpen size={14} />
-                <span>Developer & Operator Guides</span>
-              </div>
               <h2 id="docs-heading" className="text-2xl md:text-3xl font-bold tracking-tight text-[#111111]">
                 Clear documentation.
               </h2>
